@@ -11,7 +11,7 @@ const IndexPage = () => {
     e.preventDefault()
     let response = {}
     try {
-      response = await axios.post(`http://localhost:5000/api/books/${bookId}`, {
+      response = await axios.post(`https://flask-personal-library.andrew-horn-portfolio.life/api/books/${bookId}`, {
         comment_text: commentText
       })
     } catch (e) {
