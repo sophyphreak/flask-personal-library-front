@@ -59,6 +59,11 @@ const SamplePosting = () => {
         <br />
         <input type="submit" value="Submit" onClick={handleSubmitBook} />
       </form>
+      {postBookResponse && (
+        <p>
+          <code>{postBookResponse}</code>
+        </p>
+      )}
       <form action="" method="" id="commentTest" className="border">
         <h4>Test post to /api/books/{"{bookid}"}</h4>
         BookId to comment on:

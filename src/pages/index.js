@@ -1,6 +1,7 @@
 import React from "react"
 
 import SamplePosting from "../components/sample-posting"
+import SampleFrontend from "../components/sample-frontend"
 import "./style.css"
 
 const IndexPage = () => (
@@ -64,27 +65,7 @@ const IndexPage = () => (
     <hr style={{ margin: "50px" }} />
     <SamplePosting />
     <hr style={{ margin: "50px" }} />
-    <div id="sampleui">
-      <h2 style={{ textAlign: "left" }}>Sample Front-End:</h2>
-      <form id="newBookForm" className="border">
-        <input
-          type="text"
-          id="bookTitleToAdd"
-          name="title"
-          placeholder="New Book Title"
-          style={{ width: "295px" }}
-        />
-        <button type="submit" value="Submit" id="newBook">
-          Submit New Book!
-        </button>
-      </form>
-      <div id="display"></div>
-      <div id="bookDetail" className="border">
-        <p id="detailTitle">Select a book to see it's details and comments</p>
-        <ol id="detailComments"></ol>
-      </div>
-      <button id="deleteAllBooks">Delete all books...</button>
-    </div>
+    <SampleFrontend />
     <hr style={{ margin: "50px" }} />
   </div>
 )
