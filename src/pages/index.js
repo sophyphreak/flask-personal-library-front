@@ -1,28 +1,9 @@
-import React, {useState} from "react"
-import axios from "axios"
-import './style.css'
+import React from "react"
 
-const IndexPage = () => {
-  const [bookId, setBookId] = useState('')
-  const [commentText, setCommentText] = useState('')
-  const [postCommentResponse, setPostCommentResponse] = useState('')
+import SamplePosting from "../components/sample-posting"
+import "./style.css"
 
-  const handleSubmitComment = async e => {
-    e.preventDefault()
-    let response = {}
-    try {
-      response = await axios.post(`https://flask-personal-library.andrew-horn-portfolio.life/api/books/${bookId}`, {
-        comment_text: commentText
-      })
-    } catch (e) {
-      console.log(e)
-    }
-    setPostCommentResponse(JSON.stringify(response.data))
-    setBookId('')
-    setCommentText('')
-  }
-
-return (
+const IndexPage = () => (
   <div>
     <header>
       <h1>
@@ -44,17 +25,17 @@ return (
           <code>commentcount</code>.
         </li>
         <li>
-          I can <b>get</b> /api/books/{'{_id}'} to retrieve a single object of a
+          I can <b>get</b> /api/books/{"{_id}"} to retrieve a single object of a
           book containing <code>title</code>,<code>_id</code>, & an array of{" "}
           <code>comments</code> (empty array if no comments present).
         </li>
         <li>
-          I can <b>post</b> a <code>comment</code> to /api/books/{'{_id}'} to add a
-          comment to a book and returned will be the books object similar to{" "}
-          <b>get</b> /api/books/{'{_id}'}.
+          I can <b>post</b> a <code>comment</code> to /api/books/{"{_id}"} to
+          add a comment to a book and returned will be the books object similar
+          to <b>get</b> /api/books/{"{_id}"}.
         </li>
         <li>
-          I can <b>delete</b> /api/books/{'{_id}'} to delete a book from the
+          I can <b>delete</b> /api/books/{"{_id}"} to delete a book from the
           collection. Returned will be 'delete successful' if successful.
         </li>
         <li>
@@ -68,36 +49,21 @@ return (
         </li>
       </ol>
       <br />
-      <img src="https://cdn.gomix.com/d7932c52-287f-4dae-b175-631fef453000%2FScreen%20Shot%202016-12-16%20at%201.35.56%20AM.png" alt=""/>
+      <img
+        src="https://cdn.gomix.com/d7932c52-287f-4dae-b175-631fef453000%2FScreen%20Shot%202016-12-16%20at%201.35.56%20AM.png"
+        alt=""
+      />
     </div>
-    <hr style={{margin: "50px"}} />
-    <div id="sampleposting">
-      <h2 style={{ textAlign: "left" }}>Test API responses:</h2>
-      <form action="https://flask-personal-library.andrew-horn-portfolio.life/api/books/" method="post" className="border">
-        <h4>Test post to /api/books/</h4>
-        Book Title:
-        <br />
-        <input type="text" name="title" />
-        <br />
-        <input type="submit" value="Submit" />
-      </form>
-      <form action="" method="" id="commentTest" className="border">
-        <h4>Test post to /api/books/{'{bookid}'}</h4>
-        BookId to comment on:
-        <br />
-        <input type="text" name="id" value={bookId} onChange={({ target: { value }}) => setBookId(value)} id="idinputtest" />
-        <br />
-        Comment:
-        <br />
-        <input type="text" name="comment" value={commentText} onChange={({ target: { value } }) => setCommentText(value)} />
-        <br />
-        <input type="submit" value="Submit" onClick={handleSubmitComment} />
-      </form>
-      {postCommentResponse && (
-        <p><code>{postCommentResponse}</code></p>
-      )}
-    </div>
-    <hr style={{margin: "50px"}} />
+    <hr style={{ margin: "50px" }} />
+    <p className="border" style={{ padding: "3%" }}>
+      Try yourself with the endpoint of <br />{" "}
+      <code>
+        https://flask-personal-library.andrew-horn-portfolio.life/api/books/
+      </code>
+    </p>
+    <hr style={{ margin: "50px" }} />
+    <SamplePosting />
+    <hr style={{ margin: "50px" }} />
     <div id="sampleui">
       <h2 style={{ textAlign: "left" }}>Sample Front-End:</h2>
       <form id="newBookForm" className="border">
@@ -119,8 +85,8 @@ return (
       </div>
       <button id="deleteAllBooks">Delete all books...</button>
     </div>
-    <hr style={{margin: "50px"}} />
+    <hr style={{ margin: "50px" }} />
   </div>
-)}
+)
 
 export default IndexPage
