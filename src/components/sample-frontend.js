@@ -8,6 +8,8 @@ const SampleFrontend = () => {
 
   const [newComment, setNewComment] = useState("")
 
+  const [deleteSuccessfulMessage, setDeleteSuccessfulMessage] = useState(false)
+
   useEffect(() => {
     ;(async function fetchData() {
       try {
@@ -23,9 +25,8 @@ const SampleFrontend = () => {
 
   const handleSubmitBook = async (e) => {
     e.preventDefault()
-    let response = {}
     try {
-      response = await axios.post(
+      await axios.post(
         `https://flask-personal-library.andrew-horn-portfolio.life/api/books/`,
         {
           title: bookTitle,
@@ -39,46 +40,49 @@ const SampleFrontend = () => {
 
   const handleAddComment = async (e) => {
     e.preventDefault()
-    let response = {}
     try {
-      response = await axios.post(
-        `https://flask-personal-library.andrew-horn-portfolio.life/api/books/`,
+      await axios.post(
+        `https://flask-personal-library.andrew-horn-portfolio.life/api/books/${bookList[bookSelected]._id}`,
         {
-          title: bookTitle,
+          comment_text: newComment,
         }
       )
     } catch (e) {
       console.log(e)
     }
-    setBookTitle("")
+    setNewComment("")
   }
 
   const handleDeleteBook = async (e) => {
     e.preventDefault()
-    let response = {}
     try {
-      response = await axios.post(
-        `https://flask-personal-library.andrew-horn-portfolio.life/api/books/`,
-        {
-          title: bookTitle,
-        }
+      await axios.delete(
+        `https://flask-personal-library.andrew-horn-portfolio.life/api/books/${bookList[bookSelected]._id}`
       )
     } catch (e) {
       console.log(e)
     }
-    setBookTitle("")
+    setBookSelected(null)
+    setDeleteSuccessfulMessage(true)
+    setTimeout(() => {
+      setDeleteSuccessfulMessage(false)
+    }, 2000)
   }
 
   const handleDeleteAllBookss = async (e) => {
     e.preventDefault()
-    let response = {}
     try {
-      response = await axios.delete(
+      await axios.delete(
         `https://flask-personal-library.andrew-horn-portfolio.life/api/books/`
       )
     } catch (e) {
       console.log(e)
     }
+    setBookSelected(null)
+    setDeleteSuccessfulMessage(true)
+    setTimeout(() => {
+      setDeleteSuccessfulMessage(false)
+    }, 2000)
   }
 
   return (
@@ -118,14 +122,14 @@ const SampleFrontend = () => {
         {bookSelected === null && (
           <p id="detailTitle">Select a book to see it's details and comments</p>
         )}
-        {bookSelected !== null && bookSelected !== undefined && (
+        {typeof bookSelected === "number" && (
           <form>
             <p>
               <b>{bookList[bookSelected].title}</b> (id:{" "}
               {bookList[bookSelected]._id})
             </p>
             <ol id="detailComments">
-              {bookList[bookSelected].commentcount &&
+              {!!bookList[bookSelected].commentcount &&
                 bookList[bookSelected].comments.map((comment, index) => (
                   <li key={index}>{comment}</li>
                 ))}
@@ -140,6 +144,9 @@ const SampleFrontend = () => {
             <button onClick={handleAddComment}>Add Comment</button>
             <button onClick={handleDeleteBook}>Delete Book</button>
           </form>
+        )}
+        {deleteSuccessfulMessage && (
+          <p style={{ color: "red" }}>delete successful</p>
         )}
       </div>
       <button id="deleteAllBooks" onClick={handleDeleteAllBookss}>
