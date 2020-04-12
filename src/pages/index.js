@@ -57,10 +57,12 @@ const IndexPage = () => (
     </div>
     <hr style={{ margin: "50px" }} />
     <p className="border" style={{ padding: "3%" }}>
-      Try yourself with the endpoint of <br />{" "}
-      <code>
-        https://flask-personal-library.andrew-horn-portfolio.life/api/books/
-      </code>
+      <b>
+        Try yourself with the endpoint of <br />{" "}
+        <code>
+          https://flask-personal-library.andrew-horn-portfolio.life/api/books/
+        </code>
+      </b>
     </p>
     <hr style={{ margin: "50px" }} />
     <SamplePosting />
